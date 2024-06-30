@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs Finder</title>>
+        <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/registration.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,600,600i,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+</head>
+
+  <style>
+        form {
+          margin: 50px auto;
+          width: 500px;
+          padding: 20px;
+          border: 1px solid black;
+          border-radius: 10px;
+          font-family: Arial, sans-serif;
+          background-color: rgba(44, 166, 138, 0.938);
+        }
+        label {
+          display: block;
+          margin-bottom: 10px;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 20px;
+          border: 1px solid gray;
+          border-radius: 5px;
+        }
+        input[type="submit"] {
+          background-color: #4CAF50;
+          border: none;
+          color: white;
+          padding: 10px 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        input[type="submit"]:hover {
+          background-color: #3e8e41;
+        }
+      </style>
+    <script>
+      function validate()
+        {
+          var a = document.myform.username.value;
+          if(a=="")
+          {
+              alert("please, Enter your name!!!");
+              document.myform.username.focus();
+              return false;
+          }
+          if(!isNaN(a))
+          {
+              alert("please Enter only characters");
+              document.myform.username.select();
+              return false;
+          }
+          var p = document.myform.password.value;
+            if(p == "")
+            {
+                alert("please, Enter your password!!!");
+                document.myform.email.focus();
+                return false;
+            }
+            var cp = document.myform.confirm_password.value;
+            if(cp == "")
+            {
+                alert("please, Enter your password!!!");
+                document.myform.password.focus();
+                return false;
+            }
+            if(p != cp)
+            {
+                alert("Password not matched please enter correct one!!!!");
+                document.myform.password.focus();
+                return false;
+            }
+            return true
+          }
+    </script>
+<body>
+  <!--===== top nav ====-->
+ <section class="top-nav">
+     <div class="container">
+         <div class="row">
+              <div class="col-md-6">
+                 <div class="left-menu">
+                     <ul>
+                         <li><a href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>Sign In</a></li>
+                     </ul>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
+    <body background="C:\Users\Asus\Downloads\businessman-with-leather-briefcase (1).jpg" >
+      <form action="/index.html" name="myform" onsubmit="return validate()">
+            <label for="username">username:</label>
+            <input type="text" id="bid" name="username">
+            <label for="email">Password:</label>
+            <input type="password" id="bname" name="password">
+            <label for="password">Confirm Password:</label>
+            <input type="password" id="pname" name="confirm_password">
+
+        <input onclick="return validate()" type="button" name="insert" value="submit" id="insert"> <br><br>
+        <a href="index1.html" style="color: azure;">BACK</a>
+    </form>
+
+</body>
+
+<script>
+    const bid = document.getElementById('bid');
+    const bname = document.getElementById('bname');
+    const pname = document.getElementById('pname');
+    const insert = document.getElementById('insert');
+    const result = document.getElementById('res')
+
+
+    insert.addEventListener('click',()=>{
+        var data = {
+            email: bid.value,
+            password: bname.value,
+            cpassword: pname.value,
+        }
+        fetch('http://localhost:9000/api/books',{
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; chatset=UTF-8'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {return res.json()})
+        .then(res => {result.innerText = JSON.stringify(res)});
+
+    })
+</script>
+</html>
